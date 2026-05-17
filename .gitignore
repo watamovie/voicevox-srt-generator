@@ -1,0 +1,36 @@
+.DS_Store
+Thumbs.db
+
+# Local environment and credentials
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Logs and local tool output
+*.log
+logs/
+tmp/
+temp/
+.cache/
+
+# Generated media and subtitle outputs
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.mp4
+*.mov
+*.webm
+*.srt
+*.vtt
+output/
+dist/
+
+# User data exports
+*.csv
+*.tsv

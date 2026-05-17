@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SRT Generator for VOICEVOX</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="#top" id="logoHome">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="favicon.svg" alt="" />
+        </span>
+        <div class="brand-text">
+          <strong>SRT Generator</strong>
+          <span>for VOICEVOX</span>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="主要ナビゲーション">
+        <a href="#uploadStep">使い方</a>
+        <a href="#howto">準備手順</a>
+        <a href="#limitations">制限</a>
+        <a href="terms.html">利用規約</a>
+      </nav>
+      <a class="button button-primary nav-cta" href="#uploadStep">SRTを作成する</a>
+    </header>
+
+    <main class="app-main">
+      <section class="hero" id="top">
+        <p class="eyebrow">VOICEVOX to SRT</p>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1>SRT Generator for VOICEVOX</h1>
+            <p class="lead">
+              VOICEVOX などで書き出した音声（.wav）とテキスト（.txt）から、SRT 字幕をブラウザ内だけで作る小さな非公式ツールです。
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#uploadStep">SRTを作成する</a>
+              <a class="button button-ghost" href="terms.html">利用規約を読む</a>
+            </div>
+            <ul class="hero-highlights">
+              <li>ブラウザ内完結・ファイルはアップロードされません</li>
+              <li>連番の .wav と .txt から簡易SRTを生成</li>
+              <li>音声認識や .vvproj 解析は行いません</li>
+            </ul>
+          </div>
+          <div class="hero-card">
+            <p class="pill">STEPガイド</p>
+            <ol>
+              <li><span>ファイルまたはフォルダを選択</span></li>
+              <li><span>フレームレートを設定</span></li>
+              <li><span>生成された字幕ファイルをダウンロード</span></li>
+            </ol>
+            <p class="hint">ファイルを読み込む際はVOICEVOXの出力ファイル <code>.wav</code> と <code>.txt</code> を全て選択してください。</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="workflow-nav" id="workflowNav" hidden aria-label="操作ステップ">
+        <button type="button" class="workflow-pill active" data-step-button="upload" aria-current="step">
+          1. ファイル読み込み
+        </button>
+        <button type="button" class="workflow-pill" data-step-button="settings">
+          2. フレームレート/詳細設定
+        </button>
+        <button type="button" class="workflow-pill" data-step-button="results">
+          3. ダウンロード
+        </button>
+      </nav>
+
+      <section class="card step-card" id="uploadStep">
+        <div class="step-heading">
+          <p class="step-label">STEP 1</p>
+          <h2>ファイルを読み込む</h2>
+          <p class="hint">
+            フォルダごとでもファイルでも選択できます。ドラッグ＆ドロップにも対応しています。
+          </p>
+        </div>
+
+        <div
+          id="dropzone"
+          class="dropzone"
+          role="button"
+          tabindex="0"
+          aria-label="ファイルまたはフォルダをドラッグ＆ドロップ、または選択"
+        >
+          <div class="drop-inner">
+            <p class="drop-title">ここにファイル/フォルダをドロップ</p>
+            <p class="muted">ドラッグ＆ドロップ、または下のボタンからまとめて選択できます。</p>
+            <div class="drop-actions">
+              <button type="button" id="selectFilesButton" class="button button-primary">
+                ファイルを選択
+              </button>
+              <button type="button" id="selectFolderButton" class="button button-secondary">
+                フォルダを選択
+              </button>
+            </div>
+            <p class="hint">同名の .wav と .txt をセットで読み込み、ブラウザ内のみで処理します。</p>
+          </div>
+        </div>
+
+        <input id="fileInput" type="file" multiple accept=".wav,.txt" hidden />
+        <input id="folderInput" type="file" webkitdirectory directory multiple hidden />
+
+        <div class="selection-header">
+          <p id="selectedSummary" class="muted">ファイルが選択されていません</p>
+          <button type="button" id="clearSelectionButton" class="button button-ghost button-small" hidden>
+            選択をクリア
+          </button>
+        </div>
+        <div id="selectedFiles" class="selected-files empty" aria-live="polite">
+          ファイルが選択されていません
+        </div>
+      </section>
+
+      <section class="card step-card" id="settingsStep" hidden>
+        <div class="step-heading">
+          <p class="step-label">STEP 2</p>
+          <h2>動画設定</h2>
+          <p class="hint">
+            動画編集ソフトで設定しているフレームレートを選択（または入力）してください。
+          </p>
+        </div>
+
+        <form id="settingsForm" class="settings-form">
+          <input type="hidden" name="mode" id="modeInput" value="manual" />
+
+          <fieldset class="highlight">
+            <legend>フレームレート</legend>
+            <label class="checkbox">
+              <input type="checkbox" id="enableFrameLock" name="enableFrameLock" checked />
+              <span>フレーム境界に合わせてタイムコードを丸める（推奨）</span>
+            </label>
+            <div id="frameRateOptions" class="frame-rate-options">
+              <p class="hint">プリセットをクリックするか、任意の値を入力できます。</p>
+              <div
+                class="frame-rate-presets"
+                id="frameRatePresets"
+                role="radiogroup"
+                aria-label="フレームレートプリセット"
+              >
+                <button type="button" class="frame-rate-chip" data-frame-rate="23.976">23.976</button>
+                <button type="button" class="frame-rate-chip" data-frame-rate="24">24</button>
+                <button type="button" class="frame-rate-chip active" data-frame-rate="30">30</button>
+                <button type="button" class="frame-rate-chip" data-frame-rate="60">60</button>
+                <button type="button" class="frame-rate-chip" data-frame-rate="custom">カスタム</button>
+              </div>
+              <label for="frameRate">使用するフレームレート (fps)</label>
+              <input
+                type="number"
+                id="frameRate"
+                name="frameRate"
+                step="0.001"
+                min="1"
+                max="240"
+                value="30"
+              />
+              <label class="checkbox nested">
+                <input type="checkbox" id="trimFrameOverflow" name="trimFrameOverflow" checked />
+                <span>フレームからはみ出した余剰時間を切り捨てる</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <details class="advanced" id="advancedSettings">
+            <summary>その他の設定</summary>
+            <div class="advanced-body">
+              <fieldset>
+                <legend>タイミング調整</legend>
+                <label class="toggle">
+                  <input type="checkbox" id="autoModeToggle" />
+                  <span>合計時間に合わせて自動調整する</span>
+                </label>
+                <div class="mode-settings" data-mode="manual">
+                  <label for="manualAdjustment">1クリップあたりの加算秒数</label>
+                  <input
+                    type="number"
+                    id="manualAdjustment"
+                    name="manualAdjustment"
+                    step="0.01"
+                    value="0"
+                    min="-5"
+                    max="5"
+                  />
+                  <p class="hint">例: 0.02 と指定すると、すべての字幕が0.02秒ずつ伸びます。</p>
+                </div>
+
+                <div class="mode-settings hidden" data-mode="auto">
+                  <label for="targetTotalTime">目標の合計時間（秒）</label>
+                  <input
+                    type="number"
+                    id="targetTotalTime"
+                    name="targetTotalTime"
+                    step="0.1"
+                    min="0"
+                    value="60"
+                    required
+                  />
+                  <p class="hint">選択した音声の合計時間に合わせて、均等に微調整します。</p>
+                </div>
+              </fieldset>
+            </div>
+          </details>
+
+          <div class="action-row">
+            <button type="submit" class="button button-primary">SRTを生成</button>
+            <button type="button" id="jumpToUpload" class="button button-ghost">ファイル選択に戻る</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card step-card" id="results" hidden>
+        <div class="step-heading">
+          <p class="step-label">STEP 3</p>
+          <h2>結果</h2>
+          <p class="hint">ダウンロードして動画編集ソフトに取り込んでください。</p>
+        </div>
+
+        <div class="result-actions">
+          <a id="downloadLink" class="button button-primary" download="output.srt">SRTファイルをダウンロード</a>
+          <div class="result-secondary">
+            <button type="button" id="reuploadFilesButton" class="button button-secondary">
+              新しいファイル・フォルダを指定
+            </button>
+            <button type="button" id="regenerateButton" class="button button-ghost">
+              設定を調整して再生成
+            </button>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div>
+            <h3>統計</h3>
+            <dl class="stats">
+              <div>
+                <dt>クリップ数</dt>
+                <dd id="clipCount">0</dd>
+              </div>
+              <div>
+                <dt>元の合計時間</dt>
+                <dd id="originalTotal">0.00 秒</dd>
+              </div>
+              <div>
+                <dt>適用調整値</dt>
+                <dd id="adjustment">0.0000 秒</dd>
+              </div>
+              <div class="auto-only">
+                <dt>目標合計時間</dt>
+                <dd id="targetTotal">-</dd>
+              </div>
+              <div class="frame-only">
+                <dt>使用フレームレート</dt>
+                <dd id="frameRateStat">-</dd>
+              </div>
+              <div class="frame-only">
+                <dt>フレーム揃え後の合計</dt>
+                <dd id="frameAlignedTotal">-</dd>
+              </div>
+              <div class="frame-only">
+                <dt>累積のずれ</dt>
+                <dd id="frameDrift">-</dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <h3>ログ</h3>
+            <pre id="log" class="log"></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card info-card" id="howto">
+        <h2>使い方</h2>
+        <ol class="howto-list">
+          <li>
+            <strong>VOICEVOXの準備</strong>
+            <p>
+              VOICEVOXをインストールし、右上の設定ボタンからオプションタブを開きます。下部の「txtファイルを書き出し」をオンにしてください。
+            </p>
+          </li>
+          <li>
+            <strong>台本を入力して書き出す</strong>
+            <p>
+              台本を入力してキャラクターとセリフを設定し、メニューの「ファイル」→「音声書き出し」を選択。保存先を指定すると、wavと同じ場所にセリフが1行ずつ書かれたtxtファイルが出力されます。
+            </p>
+          </li>
+          <li>
+            <strong>本サイトで字幕を生成</strong>
+            <p>
+              「ファイルを選択」またはドラッグ＆ドロップで生成したwavとtxtをまとめて読み込み、「SRTを生成」をクリックすると字幕ファイルを作成できます。
+            </p>
+          </li>
+          <li>
+            <strong>動画編集ソフトで仕上げ</strong>
+            <p>
+              wavファイルを台本どおりに並べ、ダウンロードしたSRTファイルをタイムラインに追加すれば、自動で時間が同期した字幕付き音声が完成します。
+            </p>
+          </li>
+        </ol>
+        <p class="hint">音声認識ではなく、既にある音声ファイルの長さとテキストを使って簡易的なSRTを作成します。</p>
+      </section>
+
+      <section class="card info-card" id="limitations">
+        <h2>制限と位置づけ</h2>
+        <p class="hint">個人用に作った小さな非公式ツールを、現状のまま公開する想定です。継続的なサポートや動作保証はありません。</p>
+        <ul>
+          <li>VOICEVOX 公式ツールではありません。</li>
+          <li>音声認識、文字起こし、翻訳、.vvproj 解析は行いません。</li>
+          <li>ブラウザによってフォルダ選択やドラッグ＆ドロップの挙動が異なる場合があります。</li>
+          <li>タイムコードは音声長と設定値から生成するため、動画編集時の最終確認は必要です。</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-brand">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="favicon.svg" alt="" />
+        </div>
+        <div>
+          <strong>SRT Generator for VOICEVOX</strong>
+          <p class="muted">連番の音声とテキストからSRTを作る小さな道具</p>
+        </div>
+      </div>
+      <div class="footer-grid">
+        <div>
+          <h3>概要</h3>
+          <p>
+            同名 <code>.wav</code> と <code>.txt</code> ファイルをペアにして処理します。ファイル名は自動で昇順ソートし、フレーム設定に沿ったタイムコードを生成します。
+          </p>
+        </div>
+        <div>
+          <h3>クイックリンク</h3>
+          <nav class="footer-nav">
+            <a href="#uploadStep">ファイルの読み込み</a>
+            <a href="#howto">準備手順</a>
+            <a href="terms.html">利用規約・ポリシー</a>
+            <a href="#limitations">制限</a>
+          </nav>
+        </div>
+        <div class="footer-actions">
+          <h3>すぐに始める</h3>
+          <a class="button button-primary" href="#uploadStep">SRTを作成する</a>
+          <a class="button button-ghost" href="#top">ページトップへ</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
