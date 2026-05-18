@@ -19,63 +19,56 @@
         </div>
       </a>
       <nav class="nav-links" aria-label="主要ナビゲーション">
-        <a href="#uploadStep">使い方</a>
+        <a href="#uploadStep">ツール</a>
         <a href="#howto">準備手順</a>
         <a href="#limitations">制限</a>
-        <a href="terms.html">利用規約</a>
+        <a href="terms.html">利用条件</a>
       </nav>
-      <a class="button button-primary nav-cta" href="#uploadStep">SRTを作成する</a>
     </header>
 
-    <main class="app-main">
-      <section class="hero" id="top">
-        <p class="eyebrow">VOICEVOX to SRT</p>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1>SRT Generator for VOICEVOX</h1>
-            <p class="lead">
-              VOICEVOX などで書き出した音声（.wav）とテキスト（.txt）から、SRT 字幕をブラウザ内だけで作る小さな非公式ツールです。
-            </p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#uploadStep">SRTを作成する</a>
-              <a class="button button-ghost" href="terms.html">利用規約を読む</a>
-            </div>
-            <ul class="hero-highlights">
-              <li>ブラウザ内完結・ファイルはアップロードされません</li>
-              <li>連番の .wav と .txt から簡易SRTを生成</li>
-              <li>音声認識や .vvproj 解析は行いません</li>
-            </ul>
-          </div>
-          <div class="hero-card">
-            <p class="pill">STEPガイド</p>
-            <ol>
-              <li><span>ファイルまたはフォルダを選択</span></li>
-              <li><span>フレームレートを設定</span></li>
-              <li><span>生成された字幕ファイルをダウンロード</span></li>
-            </ol>
-            <p class="hint">ファイルを読み込む際はVOICEVOXの出力ファイル <code>.wav</code> と <code>.txt</code> を全て選択してください。</p>
-          </div>
+    <main class="app-main" id="top">
+      <section class="tool-summary" aria-labelledby="toolTitle">
+        <div>
+          <p class="eyebrow">Browser utility</p>
+          <h1 id="toolTitle">wav/txt から SRT を生成</h1>
+          <p class="lead">
+            VOICEVOX などで書き出した同名の音声とテキストを読み込み、ブラウザ内で字幕タイムコードを作成します。
+          </p>
         </div>
+        <dl class="summary-facts" aria-label="ツール概要">
+          <div>
+            <dt>入力</dt>
+            <dd>.wav + .txt</dd>
+          </div>
+          <div>
+            <dt>出力</dt>
+            <dd>.srt</dd>
+          </div>
+          <div>
+            <dt>処理</dt>
+            <dd>ローカルのみ</dd>
+          </div>
+        </dl>
       </section>
 
       <nav class="workflow-nav" id="workflowNav" hidden aria-label="操作ステップ">
         <button type="button" class="workflow-pill active" data-step-button="upload" aria-current="step">
-          1. ファイル読み込み
+          1. 読み込み
         </button>
         <button type="button" class="workflow-pill" data-step-button="settings">
-          2. フレームレート/詳細設定
+          2. 設定
         </button>
         <button type="button" class="workflow-pill" data-step-button="results">
-          3. ダウンロード
+          3. 出力
         </button>
       </nav>
 
       <section class="card step-card" id="uploadStep">
         <div class="step-heading">
           <p class="step-label">STEP 1</p>
-          <h2>ファイルを読み込む</h2>
+          <h2>入力ファイル</h2>
           <p class="hint">
-            フォルダごとでもファイルでも選択できます。ドラッグ＆ドロップにも対応しています。
+            同名の <code>.wav</code> と <code>.txt</code> をまとめて選択してください。
           </p>
         </div>
 
@@ -87,8 +80,7 @@
           aria-label="ファイルまたはフォルダをドラッグ＆ドロップ、または選択"
         >
           <div class="drop-inner">
-            <p class="drop-title">ここにファイル/フォルダをドロップ</p>
-            <p class="muted">ドラッグ＆ドロップ、または下のボタンからまとめて選択できます。</p>
+            <p class="drop-title">wav/txt をドロップ</p>
             <div class="drop-actions">
               <button type="button" id="selectFilesButton" class="button button-primary">
                 ファイルを選択
@@ -97,7 +89,6 @@
                 フォルダを選択
               </button>
             </div>
-            <p class="hint">同名の .wav と .txt をセットで読み込み、ブラウザ内のみで処理します。</p>
           </div>
         </div>
 
@@ -118,9 +109,9 @@
       <section class="card step-card" id="settingsStep" hidden>
         <div class="step-heading">
           <p class="step-label">STEP 2</p>
-          <h2>動画設定</h2>
+          <h2>生成設定</h2>
           <p class="hint">
-            動画編集ソフトで設定しているフレームレートを選択（または入力）してください。
+            編集先のフレームレートに合わせてタイムコードを整えます。
           </p>
         </div>
 
@@ -214,8 +205,7 @@
       <section class="card step-card" id="results" hidden>
         <div class="step-heading">
           <p class="step-label">STEP 3</p>
-          <h2>結果</h2>
-          <p class="hint">ダウンロードして動画編集ソフトに取り込んでください。</p>
+          <h2>出力</h2>
         </div>
 
         <div class="result-actions">
@@ -272,7 +262,7 @@
       </section>
 
       <section class="card info-card" id="howto">
-        <h2>使い方</h2>
+        <h2>準備手順</h2>
         <ol class="howto-list">
           <li>
             <strong>VOICEVOXの準備</strong>
@@ -304,7 +294,7 @@
 
       <section class="card info-card" id="limitations">
         <h2>制限と位置づけ</h2>
-        <p class="hint">個人用に作った小さな非公式ツールを、現状のまま公開する想定です。継続的なサポートや動作保証はありません。</p>
+        <p class="hint">VOICEVOX 公式ではない、機能を絞った静的ツールです。継続的なサポートや動作保証を前提としていません。</p>
         <ul>
           <li>VOICEVOX 公式ツールではありません。</li>
           <li>音声認識、文字起こし、翻訳、.vvproj 解析は行いません。</li>
@@ -315,37 +305,13 @@
     </main>
 
     <footer class="app-footer">
-      <div class="footer-brand">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="favicon.svg" alt="" />
-        </div>
-        <div>
-          <strong>SRT Generator for VOICEVOX</strong>
-          <p class="muted">連番の音声とテキストからSRTを作る小さな道具</p>
-        </div>
-      </div>
-      <div class="footer-grid">
-        <div>
-          <h3>概要</h3>
-          <p>
-            同名 <code>.wav</code> と <code>.txt</code> ファイルをペアにして処理します。ファイル名は自動で昇順ソートし、フレーム設定に沿ったタイムコードを生成します。
-          </p>
-        </div>
-        <div>
-          <h3>クイックリンク</h3>
-          <nav class="footer-nav">
-            <a href="#uploadStep">ファイルの読み込み</a>
-            <a href="#howto">準備手順</a>
-            <a href="terms.html">利用規約・ポリシー</a>
-            <a href="#limitations">制限</a>
-          </nav>
-        </div>
-        <div class="footer-actions">
-          <h3>すぐに始める</h3>
-          <a class="button button-primary" href="#uploadStep">SRTを作成する</a>
-          <a class="button button-ghost" href="#top">ページトップへ</a>
-        </div>
-      </div>
+      <strong>SRT Generator for VOICEVOX</strong>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="#uploadStep">ツール</a>
+        <a href="#howto">準備手順</a>
+        <a href="#limitations">制限</a>
+        <a href="terms.html">利用条件</a>
+      </nav>
     </footer>
 
     <script src="app.js" type="module"></script>

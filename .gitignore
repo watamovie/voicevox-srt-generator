@@ -16,6 +16,7 @@ logs/
 tmp/
 temp/
 .cache/
+.wrangler/
 
 # Generated media and subtitle outputs
 *.wav

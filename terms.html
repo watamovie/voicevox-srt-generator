@@ -19,43 +19,36 @@
         </div>
       </a>
       <nav class="nav-links" aria-label="主要ナビゲーション">
-        <a href="index.html#uploadStep">使い方</a>
+        <a href="index.html#uploadStep">ツール</a>
         <a href="index.html#howto">準備手順</a>
         <a href="index.html#limitations">制限</a>
-        <a class="active" href="terms.html" aria-current="page">利用規約</a>
+        <a class="active" href="terms.html" aria-current="page">利用条件</a>
       </nav>
-      <a class="button button-primary nav-cta" href="index.html#uploadStep">ツールを開く</a>
     </header>
 
-    <main class="app-main legal-main">
-      <section class="hero legal-hero" id="top">
-        <p class="eyebrow">Legal &amp; Safety</p>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1>利用条件</h1>
-            <p class="lead">
-              SRT Generator for VOICEVOX は、個人用に作った小さな非公式ツールを現状のまま提供するものです。
-            </p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="index.html#uploadStep">ツールに戻る</a>
-              <a class="button button-ghost" href="#terms">規約を読む</a>
-            </div>
-            <ul class="hero-highlights">
-              <li>データはブラウザ内のみで処理</li>
-              <li>非公式・現状提供</li>
-              <li>継続サポートや動作保証はありません</li>
-            </ul>
-          </div>
-          <div class="hero-card">
-            <p class="pill">概要</p>
-            <ol>
-              <li><span>利用規約</span></li>
-              <li><span>プライバシーポリシー</span></li>
-              <li><span>免責事項・改定情報</span></li>
-            </ol>
-            <p class="hint">最新の内容を確認し、安全にご利用ください。</p>
-          </div>
+    <main class="app-main legal-main" id="top">
+      <section class="tool-summary legal-summary" aria-labelledby="legalTitle">
+        <div>
+          <p class="eyebrow">Terms</p>
+          <h1 id="legalTitle">利用条件</h1>
+          <p class="lead">
+            VOICEVOX 向けの非公式な静的ツールです。ファイル内容はブラウザ内で処理されます。
+          </p>
         </div>
+        <dl class="summary-facts" aria-label="利用条件の概要">
+          <div>
+            <dt>提供</dt>
+            <dd>静的ツール</dd>
+          </div>
+          <div>
+            <dt>通信</dt>
+            <dd>ファイル送信なし</dd>
+          </div>
+          <div>
+            <dt>種別</dt>
+            <dd>非公式</dd>
+          </div>
+        </dl>
       </section>
 
       <section class="card info-card legal-card" id="terms">
@@ -64,12 +57,12 @@
           SRT Generator for VOICEVOX（以下「本ツール」）は、音声ファイルとテキストファイルのペアから SRT 字幕を生成するための静的なWebツールです。本ツールの利用にあたり、以下の内容に同意いただいたものとみなします。
         </p>
         <ul>
-          <li>本ツールは VOICEVOX 公式プロジェクトではない、個人制作の非公式ツールです。</li>
+          <li>本ツールは VOICEVOX 公式プロジェクトではない、非公式ツールです。</li>
           <li>本ツールには VOICEVOX 本体、エンジン、コア、音声ライブラリ、キャラクター素材は含まれていません。</li>
           <li>利用者は、生成したファイルの管理と活用について自己責任を負います。</li>
           <li>本ツールはブラウザ上で動作し、選択されたファイルをアプリケーションのサーバーへ送信しません。</li>
           <li>VOICEVOX で作成した音声を利用する場合は、VOICEVOX ソフトウェア利用規約および各音声ライブラリの利用規約に従ってください。</li>
-          <li>本ツールは現状提供です。継続的なサポート、修正、動作保証はありません。</li>
+          <li>本ツールは、継続的なサポート、修正、動作保証を前提としていません。</li>
         </ul>
       </section>
 
@@ -105,35 +98,13 @@
     </main>
 
     <footer class="app-footer">
-      <div class="footer-brand">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="favicon.svg" alt="" />
-        </div>
-        <div>
-          <strong>SRT Generator for VOICEVOX</strong>
-          <p class="muted">ご利用前に規約とポリシーをご確認ください</p>
-        </div>
-      </div>
-      <div class="footer-grid">
-        <div>
-          <h3>概要</h3>
-          <p>本ツールはブラウザ上で完結し、選択されたファイルはアプリケーションのサーバーへ送信されません。</p>
-        </div>
-        <div>
-          <h3>クイックリンク</h3>
-          <nav class="footer-nav">
-            <a href="index.html#uploadStep">ツールを使う</a>
-            <a href="index.html#howto">準備手順</a>
-            <a href="index.html#limitations">制限</a>
-            <a href="#terms">利用規約</a>
-          </nav>
-        </div>
-        <div class="footer-actions">
-          <h3>戻る</h3>
-          <a class="button button-primary" href="index.html#uploadStep">字幕を作成する</a>
-          <a class="button button-ghost" href="#top">ページトップへ</a>
-        </div>
-      </div>
+      <strong>SRT Generator for VOICEVOX</strong>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="index.html#uploadStep">ツール</a>
+        <a href="index.html#howto">準備手順</a>
+        <a href="index.html#limitations">制限</a>
+        <a href="#top">ページトップ</a>
+      </nav>
     </footer>
   </body>
 </html>
