@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Public app
+    url: https://srt-wavtxt-tool.pages.dev/
+    about: Try the latest deployed version before filing an issue.
+  - name: Security policy
+    url: https://github.com/watamovie/voicevox-srt-generator/security/policy
+    about: Read how to report security-sensitive issues.

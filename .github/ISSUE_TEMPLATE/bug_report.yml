@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a reproducible problem with SRT generation
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Do not attach private audio or script files.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      description: "Example: Chrome 126 on macOS 15"
+    validations:
+      required: true
+  - type: dropdown
+    id: selection-method
+    attributes:
+      label: File selection method
+      options:
+        - File picker
+        - Folder picker
+        - Drag and drop
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include file-name patterns and counts, but avoid private contents.
+      placeholder: |
+        1. Select files named ...
+        2. Set frame rate to ...
+        3. Click SRTを生成
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: App log or generated SRT snippet
+      description: Paste only non-private snippets.
+      render: text

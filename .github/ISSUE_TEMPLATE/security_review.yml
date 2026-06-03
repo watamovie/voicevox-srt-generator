@@ -1,0 +1,41 @@
+name: Security or privacy concern
+description: Report a security or privacy concern without public exploit details
+title: "[Security]: "
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please keep exploit details and private files out of public issues. Start with a minimal impact summary.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What security or privacy property may be affected?
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Local file handling
+        - DOM rendering or XSS
+        - Unintended network transmission
+        - Download generation
+        - Static hosting
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Potential impact
+    validations:
+      required: true
