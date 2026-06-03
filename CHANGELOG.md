@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.1 - 2026-06-03
+
 - Added contributor documentation, security policy, support guidance, and issue templates.
 - Expanded project positioning for open-source maintenance and browser-only privacy expectations.
 
